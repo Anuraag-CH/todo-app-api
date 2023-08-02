@@ -25,4 +25,12 @@ app.get('/todos', async (req, res) => {
 
 })
 
+app.get('/todos/:id', async (req, res) => {
+    const { id } = req.params
+    const todo = await Todo.findOne({ _id: id })
+    res.json(todo)
+
+})
+
+
 app.listen(3000, () => (console.log("listening on port 3000")))
