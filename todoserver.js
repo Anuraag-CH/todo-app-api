@@ -41,8 +41,16 @@ app.post('/todos', async (req, res) => {
 
 })
 
-app.delete('/todos', async (req, res) => {
+app.delete('/todos/:id', async (req, res) => {
 
+    const todo = await Todo.findByIdAndDelete(req.params.id)
+
+    if (todo) {
+        res.send("Todo deleted")
+    }
+    else {
+        res.status(404).send("Todo Not found")
+    }
 
 })
 
