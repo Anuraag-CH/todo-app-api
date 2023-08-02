@@ -7,7 +7,8 @@ app.use(express.json())
 
 const todoSchema = new mongoose.Schema({
     title: { type: String, required: true },
-    description: { type: String, required: true }
+    description: { type: String, required: true },
+    completed: { type: Boolean, default: false }
 });
 
 const Todo = mongoose.model('Todo', todoSchema)
@@ -31,6 +32,23 @@ app.get('/todos/:id', async (req, res) => {
     res.json(todo)
 
 })
+
+app.post('/todos', async (req, res) => {
+
+    const todo = new Todo(req.body)
+    await todo.save()
+    res.status(201).send(todo.id)
+
+})
+
+app.delete('/todos', async (req, res) => {
+
+
+})
+
+app.use((req, res, next) => {
+    res.status(404).send();
+});
 
 
 app.listen(3000, () => (console.log("listening on port 3000")))
