@@ -29,7 +29,8 @@ const Todo = mongoose.model('Todo', todoSchema);
 
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    dbName: 'todos'
 });
 
 app.get('/todos', async (req, res) => {
