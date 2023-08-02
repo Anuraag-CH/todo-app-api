@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config();
+
 
 const app = express();
 
@@ -24,7 +26,8 @@ const todoSchema = new mongoose.Schema({
 
 const Todo = mongoose.model('Todo', todoSchema);
 
-mongoose.connect('mongodb://127.0.0.1:27017/todos', {
+
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -77,6 +80,6 @@ app.use((req, res, next) => {
     res.status(404).send();
 });
 
-app.listen(3000, () => {
-    console.log("listening on port 3000");
+app.listen(process.env.PORT, () => {
+    console.log("app is listening");
 });
